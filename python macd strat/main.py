@@ -42,9 +42,12 @@ for index, row in df.iterrows():
     if(df.index.get_loc(index) >= 1):
         if(df.iloc[df.index.get_loc(index)-1]['macd_h'] < 0 and row['macd_h'] > 0):
             print(row['macd_h'])
-            df.iloc[df.index.get_loc(index), df.columns.get_loc('trading_signal')] = 100
+            df.iloc[df.index.get_loc(index), df.columns.get_loc('trading_signal')] = 1
             print(df.iloc[df.index.get_loc(index)]['trading_signal'])
-
+        if(df.iloc[df.index.get_loc(index)-1]['macd_h'] > 0 and row['macd_h'] < 0):
+            print(row['macd_h'])
+            df.iloc[df.index.get_loc(index), df.columns.get_loc('trading_signal')] = -1
+            print(df.iloc[df.index.get_loc(index)]['trading_signal'])
 
 
 
@@ -138,3 +141,7 @@ df.to_excel(r'MACD trading signal.xlsx', index = True)
 # # Update options and show plot
 # fig.update_layout(layout)
 # fig.show()
+
+
+
+#reference of MACD calculation from: https://www.alpharithms.com/calculate-macd-python-272222/
